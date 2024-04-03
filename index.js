@@ -1,18 +1,32 @@
+const keys = require('./keys');
 const redis = require('redis');
 const redisClient = redis.createClient({
-    host: 'redis-server',
-    port: 6379
+    host: keys.redisHost,
+    port: keys.redisPort,
+    retry_strategy: () => 1000
 });
-redisClient.set('test', 0);
+
+function test(item) {
+    return parseInt(test);
+}
+
+const sub = redisClient.duplicate();
+sub.on('message', (channel, message) => {
+    redisClient.hSet('values', message, test(message));
+});
+sub.subscribe('insert');
+
+//redisClient.connect();
+//redisClient.set('test', 0);
 
 const express = require('express');
 const app = express();
 app.get('/', (req, res) =>{
     var test = Math.random(); 
-    redisClient.get('test', (err, valueItem) => {
-        res.send(valueItem);
-        redisClient.set('test', parseFloat(test));
-    });
+    //redisClient.get('test', (err, valueItem) => {
+        res.send('changed editor again 26');
+        //redisClient.set('test', parseFloat(test));
+    //});
 });
 
 app.listen(8081, () => {
