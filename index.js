@@ -24,7 +24,7 @@ const app = express();
 app.get('/', (req, res) =>{
     var test = Math.random(); 
     //redisClient.get('test', (err, valueItem) => {
-        res.send('changed editor again 26');
+        res.send('changed editor again 27');
         //redisClient.set('test', parseFloat(test));
     //});
 });
