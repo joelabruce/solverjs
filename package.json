@@ -2,7 +2,9 @@
     "dependencies": {
         "express": "*",
         "nodemon": "1.18.3",
-        "redis": "2.8.0"
+        "redis": "2.8.0",
+        "mysql2": "^2.3.3",
+        "dotenv": "^10.0.0"
     },
     "scripts": {
         "start": "node index.js",
