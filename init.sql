@@ -46,7 +46,7 @@ BEGIN
     INSERT INTO Purchases (customer_email, customer_key, purchase_date)
     VALUES (email, purchase_key, NOW());
 
-    SELECT 'Purchase successful!' + purchase_key;
+    SELECT purchase_key;
 END $$
 
 CREATE PROCEDURE RegisterEmailWithMachineId(IN email NVARCHAR(255), IN machine_id NVARCHAR(255))
