@@ -23,7 +23,7 @@ BEGIN
 
     IF matching_email = 0 THEN
     -- Email not found, need to purchase on website
-        SELECT 'Email not found, need to purchase first!';
+        SELECT 0 as success, '0. Email not found, need to purchase first!' as prompt;
     ELSE
     -- Email found, see if machine id found
         SELECT COUNT(*) INTO registered_email
@@ -32,11 +32,11 @@ BEGIN
 
         If registered_email > 0 THEN
         -- Login success!
-            SELECT registered_email;
+            SELECT 1 as success, '2. Login success!' as prompt;
         ELSE
         -- Login not successful, register machine_id
             CALL RegisterEmailWithMachineId(email, machine_id);
-            SELECT 'Registered new machine!';
+            SELECT 1 as success, '1. Registered new machine, login success!' as prompt;
         END IF;
     END IF;
 END $$
