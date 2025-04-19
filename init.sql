@@ -3,23 +3,19 @@ USE testdb;
 
 CREATE TABLE IF NOT EXISTS Purchases (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  customer_email VARCHAR(255) NOT NULL UNIQUE,
+  customer_email NVARCHAR(320) NOT NULL UNIQUE,
   customer_key NVARCHAR(255) NOT NULL,
   customer_machine_id VARCHAR(255) NOT NULL DEFAULT 'Unspecified',
   purchase_date DATETIME NOT NULL,
   registration_date DATETIME NULL
 );
 
-CREATE TABLE IF NOT EXISTS Users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(255) NOT NULL UNIQUE,
-);
 DELIMITER $$
 
-CREATE PROCEDURE AttemptLoginOrRegister(IN email NVARCHAR(255), IN machine_id NVARCHAR(255))
+CREATE PROCEDURE AttemptLoginOrRegister(IN email NVARCHAR(320), IN machine_id NVARCHAR(255))
 BEGIN
     DECLARE matching_email INT;
-    DECLARE registered_email NVARCHAR(255);
+    DECLARE registered_email NVARCHAR(320);
 
     SELECT COUNT(*) INTO matching_email
     FROM Purchases
@@ -45,7 +41,7 @@ BEGIN
     END IF;
 END $$
 
-CREATE PROCEDURE Purchase(IN email NVARCHAR(255), IN purchase_key NVARCHAR(255))
+CREATE PROCEDURE Purchase(IN email NVARCHAR(320), IN purchase_key NVARCHAR(255))
 BEGIN
     INSERT INTO Purchases (customer_email, customer_key, purchase_date)
     VALUES (email, purchase_key, NOW());
@@ -53,7 +49,7 @@ BEGIN
     SELECT purchase_key;
 END $$
 
-CREATE PROCEDURE RegisterEmailWithMachineId(IN email NVARCHAR(255), IN machine_id NVARCHAR(255))
+CREATE PROCEDURE RegisterEmailWithMachineId(IN email NVARCHAR(320), IN machine_id NVARCHAR(255))
 BEGIN
    UPDATE Purchases 
    SET customer_machine_id = machine_id, registration_date = NOW()
